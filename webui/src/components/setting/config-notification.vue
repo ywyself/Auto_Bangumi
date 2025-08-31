@@ -10,6 +10,7 @@ const notificationType: NotificationType = [
   'telegram',
   'server-chan',
   'bark',
+  'PushDeer',
   'wecom',
 ];
 

@@ -6,7 +6,8 @@ on:
       - closed
     branches:
       - main
-  push:
+  #push:
+  workflow_dispatch:
 
 jobs:
   test:
