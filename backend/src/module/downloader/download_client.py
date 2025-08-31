@@ -135,11 +135,13 @@ class DownloadClient(TorrentPath):
                 else:
                     torrent_file = req.get_content(torrent.url)
                     torrent_url = None
+        tags = ["Bangumi", bangumi.official_title, bangumi.group_name, f"第{bangumi.season}季"]
         if self.client.add_torrents(
             torrent_urls=torrent_url,
             torrent_files=torrent_file,
             save_path=bangumi.save_path,
             category="Bangumi",
+            tags=",".join(tags),
         ):
             logger.debug(f"[Downloader] Add torrent: {bangumi.official_title}")
             return True
