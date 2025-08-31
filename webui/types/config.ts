@@ -13,7 +13,7 @@ export type RenameMethod = ['normal', 'pn', 'advance', 'none'];
 /** 代理类型 */
 export type ProxyType = ['http', 'https', 'socks5'];
 /** 通知类型 */
-export type NotificationType = ['telegram', 'server-chan', 'bark', 'wecom'];
+export type NotificationType = ['telegram', 'server-chan', 'bark', 'PushDeer', 'wecom'];
 /** OpenAI Model List */
 export type OpenAIModel = ['gpt-3.5-turbo'];
 /** OpenAI API Type */
@@ -62,7 +62,7 @@ export interface Proxy {
 }
 export interface Notification {
   enable: boolean;
-  type: 'telegram' | 'server-chan' | 'bark' | 'wecom';
+  type: 'telegram' | 'server-chan' | 'bark' | 'PushDeer' | 'wecom';
   token: string;
   chat_id: string;
 }
