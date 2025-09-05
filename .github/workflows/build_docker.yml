@@ -3,6 +3,10 @@ name: Direct Build Docker
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-webui:
     runs-on: ubuntu-latest
@@ -42,8 +46,7 @@ jobs:
           cd webui && pnpm build
 
       - name: Upload artifact
-        # 把 webui/dist 目录上传为名为 dist 的 artifact。
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist
           path: webui/dist
@@ -66,11 +69,11 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Download artifact
-        # 这一步就是把上传的 artifact（也就是 webui/dist）下载到 backend/src/dist 目录。
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: backend/src/dist
+          merge-multiple: true
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -102,8 +105,8 @@ jobs:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: True
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha, scope=${{ github.workflow }}
-          cache-to: type=gha, scope=${{ github.workflow }}
+          cache-from: type=gha, scope=${{ github.repository }}
+          cache-to: type=gha, scope=${{ github.repository }}
