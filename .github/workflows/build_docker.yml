@@ -64,7 +64,7 @@ jobs:
         id: version
         working-directory: ./backend/src
         run: |
-          VERSION=$(date +%Y%m%d.%H%M%S)
+          VERSION=0.3.$(date +%Y%m%d%H%M%S)
           echo "VERSION='$VERSION'" >> module/__version__.py
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
